@@ -1,0 +1,9 @@
+build/
+signing/
+dist/
+*.p12
+*.jks
+*.keystore
+*.idsig
+__pycache__/
+.DS_Store

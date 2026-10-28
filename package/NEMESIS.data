@@ -1,0 +1,11 @@
+[nemesis]
+id=module.browser
+name=RepoMan
+version=0.1.1
+types=application
+
+[app.0]
+kind=apk
+path=app/RepoMan.apk
+package=dev.nemesiscatalog
+component=dev.nemesiscatalog/dev.nemesiscatalog.BrowserActivity
