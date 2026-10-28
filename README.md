@@ -17,7 +17,7 @@ Open **RepoMan**, connect the head unit to home Wi-Fi or a phone hotspot, and ta
 
 The Hello package writes only `/data/nemesis/apps/catalog.hello/installed.txt` and has a launchable script that emits a log message. It has no persistent service and changes no vehicle settings. Remove it through NEMESIS Manager after testing.
 
-The second catalog entry is the **diagnostic-only** Camera Inventory 0.1.2, with its declared firmware restriction. It does not provide live camera views. A matching declaration is not a hardware compatibility guarantee.
+The second catalog entry is the **diagnostic-only** [Camera Inventory 0.1.2](https://github.com/apbreck/RepoMan/releases/tag/camera-v0.1.2), hosted in this repository with its declared firmware restriction. It does not provide live camera views. A matching declaration is not a hardware compatibility guarantee.
 
 ## Trust and limits
 
@@ -42,4 +42,4 @@ NEMESIS is a separate AGPL-3.0 runtime prerequisite; none of its executable code
 
 ## Renamed from Nemesis Module Browser
 
-RepoMan 0.1.1 keeps Android package `dev.nemesiscatalog`, NEMESIS ID `module.browser`, and the original APK signing identity, so it can update the prototype browser. Those internal identifiers are retained for update compatibility. Install the RepoMan ZIP through NEMESIS to update; in-app browser self-update is not supported yet. The catalog and RepoMan releases now live in this repository. Camera Inventory remains in [Ioniq5CamTest](https://github.com/apbreck/Ioniq5CamTest).
+RepoMan 0.1.1 keeps Android package `dev.nemesiscatalog`, NEMESIS ID `module.browser`, and the original APK signing identity, so it can update the prototype browser. Those internal identifiers are retained for update compatibility. Install the RepoMan ZIP through NEMESIS to update; in-app browser self-update is not supported yet. The catalog and RepoMan releases now live in this repository. Camera Inventory source remains in [Ioniq5CamTest](https://github.com/apbreck/Ioniq5CamTest); its installers are also available in [RepoMan](https://github.com/apbreck/RepoMan/releases/tag/camera-v0.1.2).

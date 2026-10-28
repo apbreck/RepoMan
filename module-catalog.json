@@ -24,7 +24,7 @@
       "firmwarePrefixes": [
         "NEEV23.USA.S5W_M.V015.012.260507"
       ],
-      "downloadUrl": "https://github.com/apbreck/Ioniq5CamTest/releases/download/v0.1.2/camera-probe-0.1.2.zip",
+      "downloadUrl": "https://github.com/apbreck/RepoMan/releases/download/camera-v0.1.2/camera-probe-0.1.2.zip",
       "bytes": 56699,
       "sha256": "b0192ae920ea97a1bf51d6d8446ab958930cfa907492b60dbf161778596c3427"
     }
