@@ -1,7 +1,7 @@
 [nemesis]
 id=module.browser
 name=RepoMan
-version=0.1.1
+version=0.1.2
 types=application
 
 [app.0]

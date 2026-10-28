@@ -12,7 +12,7 @@ run(['javac','--release','8','-classpath',android,'-d',classes,*sorted((root/'sr
 run(['javac','-d',tests,root/'src/dev/nemesiscatalog/Policy.java',root/'src/dev/nemesiscatalog/PackageCheck.java',root/'tests/ChecksTest.java'])
 run(['java','-cp',tests,'ChecksTest'])
 run([bt/'d8','--min-api','19','--lib',android,'--output',dex,*sorted(classes.rglob('*.class'))])
-unsigned=build/'unsigned.apk';run([bt/'aapt','package','-f','-M',root/'AndroidManifest.xml','-I',android,'-F',unsigned])
+unsigned=build/'unsigned.apk';run([bt/'aapt','package','-f','-M',root/'AndroidManifest.xml','-A',root/'assets','-I',android,'-F',unsigned])
 with zipfile.ZipFile(unsigned,'a',zipfile.ZIP_DEFLATED) as z:z.write(dex/'classes.dex','classes.dex')
 aligned=build/'aligned.apk';run([bt/'zipalign','-f','4',unsigned,aligned])
 key=keys/'module-browser.p12'
@@ -29,8 +29,8 @@ def pack(folder,out):
  with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as z:
   for p in sorted(folder.rglob('*')):
    if p.is_file():z.write(p,str(p.relative_to(folder)))
-module=dist/'repoman-0.1.1.zip';pack(stage,module)
-with zipfile.ZipFile(dist/'repoman-0.1.1-usb.zip','w',zipfile.ZIP_DEFLATED) as z:
+module=dist/'repoman-0.1.2.zip';pack(stage,module)
+with zipfile.ZipFile(dist/'repoman-0.1.2-usb.zip','w',zipfile.ZIP_DEFLATED) as z:
  z.writestr('NEMESIS.data','[nemesis]\nversion=1\ntype=install\npath=packages/repoman.zip\n');z.write(module,'packages/repoman.zip');z.write(root/'README.md','REPOMAN-README.md');z.write(root/'LICENSE','LICENSE')
 hello=dist/'catalog-hello-1.0.0.zip';pack(root/'hello',hello)
 with zipfile.ZipFile(hello,'a',zipfile.ZIP_DEFLATED) as z:z.write(root/'LICENSE','LICENSE')
@@ -43,5 +43,5 @@ if catalog.exists():
  entries.extend(m for m in existing.get('modules',[]) if m['id']!='catalog.hello')
 catalog.write_text(json.dumps(dict(schemaVersion=1,repository='apbreck/RepoMan',modules=entries),indent=2)+'\n')
 with open(dist/'SHA256SUMS.txt','w') as f:
- for p in sorted(dist.glob('*.zip')):f.write(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n')
+ for p in [module,dist/'repoman-0.1.2-usb.zip',hello]:f.write(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n')
 print('Built browser and test catalog:',dist)

@@ -6,8 +6,13 @@ import java.util.*;
 import javax.net.ssl.*;
 final class Network {
     interface Progress{void update(long received,long expected);}
+    private static volatile SSLSocketFactory trustedFactory;
+    static synchronized void configureTrust(InputStream... roots)throws Exception {
+        if(trustedFactory==null)trustedFactory=TlsTrust.factory(TlsTrust.combine(TlsTrust.manager(null),TlsTrust.supplemental(roots)));
+    }
     private static final class Tls extends SSLSocketFactory {
-        final SSLSocketFactory delegate=(SSLSocketFactory)SSLSocketFactory.getDefault();
+        final SSLSocketFactory delegate;
+        Tls()throws IOException{delegate=trustedFactory;if(delegate==null)throw new IOException("RepoMan certificate store is not initialized");}
         Socket configure(Socket s){if(s instanceof SSLSocket){SSLSocket ssl=(SSLSocket)s;List<String> p=new ArrayList<String>();for(String v:ssl.getSupportedProtocols())if(v.equals("TLSv1.2")||v.equals("TLSv1.3"))p.add(v);ssl.setEnabledProtocols(p.toArray(new String[0]));}return s;}
         public String[] getDefaultCipherSuites(){return delegate.getDefaultCipherSuites();}public String[] getSupportedCipherSuites(){return delegate.getSupportedCipherSuites();}
         public Socket createSocket(Socket s,String h,int p,boolean c)throws IOException{return configure(delegate.createSocket(s,h,p,c));}
@@ -20,7 +25,7 @@ final class Network {
         URL url=new URL(source);
         for(int redirects=0;redirects<6;redirects++){
             Policy.transport(url,test);HttpURLConnection c=(HttpURLConnection)url.openConnection();
-            c.setConnectTimeout(15000);c.setReadTimeout(20000);c.setInstanceFollowRedirects(false);c.setRequestProperty("User-Agent","RepoMan/0.1.1");c.setRequestProperty("Accept-Encoding","identity");
+            c.setConnectTimeout(15000);c.setReadTimeout(20000);c.setInstanceFollowRedirects(false);c.setRequestProperty("User-Agent","RepoMan/0.1.2");c.setRequestProperty("Accept-Encoding","identity");
             if(c instanceof HttpsURLConnection)((HttpsURLConnection)c).setSSLSocketFactory(new Tls());
             try{int code=c.getResponseCode();if(code==301||code==302||code==303||code==307||code==308){String loc=c.getHeaderField("Location");if(loc==null)throw new IOException("Redirect without destination");url=new URL(url,loc);continue;}
                 if(code!=200)throw new IOException("HTTP "+code+" from "+url.getHost());

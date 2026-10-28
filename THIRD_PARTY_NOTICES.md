@@ -37,3 +37,7 @@ NEMESIS is independently licensed under AGPL-3.0. This distribution does not bun
 ## Android and Hyundai interfaces
 
 The module uses the device’s Android and vendor interfaces at runtime. No Hyundai firmware binaries, firmware keys, or vehicle diagnostic snapshots are included. Android SDK tools are build prerequisites and are not redistributed here.
+
+## Public CA certificates
+
+RepoMan includes the public ISRG Root X1 (Internet Security Research Group) and USERTrust ECC Certification Authority (Sectigo / The USERTRUST Network) certificates for app-local HTTPS verification. They are public trust-anchor certificates, not signing keys or executable code. Sources and SHA-256 fingerprints are recorded in [docs/CERTIFICATES.md](docs/CERTIFICATES.md).

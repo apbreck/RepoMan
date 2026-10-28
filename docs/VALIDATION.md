@@ -28,3 +28,11 @@ After publication, the same browser build fetched the public HTTPS catalog from 
 - Vehicle installation remains unverified.
 
 The published RepoMan HTTPS catalog loaded successfully in the emulator. The Hello ZIP downloaded from the new repository’s v0.1.1 release and passed size, hash, and package checks. No installation was attempted in this network check. [Screenshot](github-catalog.png).
+
+## RepoMan 0.1.2 certificate compatibility
+
+- Java/API 19 build, API 19 signature verification, and existing package checks passed.
+- TLS integration tests accepted supplemental roots and retained system trust; unknown issuers, expired leaves, wrong hostnames and empty root inputs were rejected.
+- Live GitHub catalog and release download/hash/package verification passed with only an unrelated CA in the simulated JVM system trust store.
+- API 35 emulator upgrade from 0.1.1 to 0.1.2 succeeded; the APK’s bundled certificate assets loaded and the real GitHub catalog/download verification passed. No NEMESIS installation was attempted.
+- Physical Android 4.4/head-unit verification is pending. See [certificate details](CERTIFICATES.md).
