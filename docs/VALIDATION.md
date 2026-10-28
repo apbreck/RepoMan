@@ -26,3 +26,5 @@ After publication, the same browser build fetched the public HTTPS catalog from 
 - Verified APK signatures for API 19.
 - Installed the original browser APK, then updated it to RepoMan 0.1.1 with Android’s update installer in an API 35 emulator; the update succeeded with the retained package and signing identity.
 - Vehicle installation remains unverified.
+
+The published RepoMan HTTPS catalog loaded successfully in the emulator. The Hello ZIP downloaded from the new repository’s v0.1.1 release and passed size, hash, and package checks. No installation was attempted in this network check. [Screenshot](github-catalog.png).
